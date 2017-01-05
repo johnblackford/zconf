@@ -28,12 +28,17 @@ class MulticastDnsListener(object):
         info = zconf.get_service_info(type, name)
 
         if info.type.endswith("_usp-agt-coap._udp.local."):
-            addr = socket.inet_ntoa(info.address)
-            port = str(info.port)
-            print("Found a USP CoAP Agent: coap:\\\\" + addr + ":" + port + "\\usp")
-            coap_url = info.properties.get(b'url', b'UNKNOWN').decode('ascii')
-            print("Found a USP CoAP Agent at " + coap_url)
+            print("Found a USP CoAP Agent")
+            coap_url = info.properties.get(b'url').decode('ascii')
 
+            if coap_url is not None:
+                print(" -- The Agent's CoAP URL is: " + coap_url)
+            else:
+                addr = socket.inet_ntoa(info.address)
+                port = str(info.port)
+                print(" -- The Agent's CoAP URL Should be: coap:\\\\" + addr + ":" + port + "\\usp")
+
+        print("")
         print("Service [{}] was Added: {}".format(name, info))
 
     def remove_service(self, zconf, type, name):
