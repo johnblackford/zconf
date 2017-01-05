@@ -1,2 +1,2 @@
 # zconf
-Python Zeroconf Example
+Example Python Code using the zeroconf library.
