@@ -7,14 +7,14 @@ init:
 find:
 	python3 -m find
 
-listen-agent:
+la:
 	python3 -m listen -s _usp-agt-coap._udp.local.
 
-listen-controller:
+lc:
 	python3 -m listen -s _usp-ctl-coap._udp.local.
 
-announce-agent:
+aa:
 	python3 -m announce -a
 
-announce-controller:
+ac:
 	python3 -m announce -c
