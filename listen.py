@@ -28,15 +28,9 @@ class MulticastDnsListener(object):
         info = zconf.get_service_info(type, name)
 
         if info.type.endswith("_usp-agt-coap._udp.local."):
-            print("Found a USP CoAP Agent")
-            coap_url = info.properties.get(b'url').decode('ascii')
-
-            if coap_url is not None:
-                print(" -- The Agent's CoAP URL is: " + coap_url)
-            else:
-                addr = socket.inet_ntoa(info.address)
-                port = str(info.port)
-                print(" -- The Agent's CoAP URL Should be: coap:\\\\" + addr + ":" + port + "\\usp")
+            self._print_agent_info(info)
+        elif info.type.endswith("_usp-ctl-coap._udp.local."):
+            self._print_controller_info(info)
 
         print("")
         print("Service [{}] was Added: {}".format(name, info))
@@ -44,6 +38,32 @@ class MulticastDnsListener(object):
     def remove_service(self, zconf, type, name):
         print("Service [{}] was Removed".format(name))
 
+
+    def _print_coap_url(self, info, addr_type):
+        print("Found a USP CoAP {}".format(addr_type))
+        resource_path = info.properties.get(b'path')
+
+        if resource_path is not None:
+            addr = socket.inet_ntoa(info.address)
+            port = str(info.port)
+            decoded_resource_path = resource_path.decode('ascii')
+            coap_url = "coap://" + addr + ":" + port + "/" + decoded_resource_path
+            print(" -- The {}'s CoAP URL is: {}".format(addr_type, coap_url))
+        else:
+            print(" -- The {}'s CoAP URL could not be determined")
+
+    def _print_agent_info(self, info):
+        name = info.properties.get(b'name')
+        self._print_coap_url(info, "Agent")
+
+        if name is not None:
+            decoded_name = name.decode('ascii')
+            print(" -- The Agent's CoAP Friendly Name is: {}".format(decoded_name))
+        else:
+            print(" -- The Agent's CoAP Friendly Name was not found")
+
+    def _print_controller_info(self, info):
+        self._print_coap_url(info, "Controller")
 
 
 def main():
