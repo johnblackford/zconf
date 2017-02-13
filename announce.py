@@ -29,7 +29,7 @@ _AGENT_COAP_PORT_ = 15683
 _CONTROLLER_COAP_PORT_ = 5683
 _AGENT_SVC_NAME_ = "_usp-agt-coap._udp."
 _CONTROLLER_SVC_NAME_ = "_usp-ctl-coap._udp."
-_AGENT_ENDPOINT_ID_ = "00D09E-RPi_Test-T0000000001"
+_AGENT_ENDPOINT_ID_ = "usp.00D09E-RPi_Test-T0000000001"
 _CONTROLLER_ENDPOINT_ID_ = "controller-coap-johnb"
 _COAP_RESOURCE_ = "usp"
 
@@ -70,7 +70,7 @@ def main():
 
     srv = zeroconf.ServiceInfo(svc_type, svc_name, svc_addr, svc_port, properties=svc_props, server=svc_server)
     zconf = zeroconf.Zeroconf(interfaces=zeroconf.InterfaceChoice.Default)
-    zconf.register_service(srv)
+    zconf.register_service(srv, ttl=2)
 
     try:
         input("Press Enter to Continue...\n\n")
