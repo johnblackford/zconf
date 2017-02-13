@@ -50,7 +50,7 @@ class MulticastDnsListener(object):
             coap_url = "coap://" + addr + ":" + port + "/" + decoded_resource_path
             print(" -- The {}'s CoAP URL is: {}".format(addr_type, coap_url))
         else:
-            print(" -- The {}'s CoAP URL could not be determined")
+            print(" -- The CoAP URL could not be determined")
 
     def _print_agent_info(self, info):
         name = info.properties.get(b'name')
