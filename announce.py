@@ -29,7 +29,7 @@ _AGENT_COAP_PORT_ = 15683
 _CONTROLLER_COAP_PORT_ = 5683
 _AGENT_SVC_NAME_ = "_usp-agt-coap._udp."
 _CONTROLLER_SVC_NAME_ = "_usp-ctl-coap._udp."
-_AGENT_ENDPOINT_ID_ = "usp.00D09E-RPi_Test-T0000000001"
+_AGENT_ENDPOINT_ID_ = "00D09E-RPi_Test-T0000000001"
 _CONTROLLER_ENDPOINT_ID_ = "controller-coap-johnb"
 _COAP_RESOURCE_ = "usp"
 
@@ -81,3 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
